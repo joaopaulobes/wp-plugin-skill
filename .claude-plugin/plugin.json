@@ -1,0 +1,18 @@
+{
+  "name": "wp-plugin",
+  "description": "Cria plugins de WordPress completos e profissionais a partir de uma descrição em linguagem natural: código seguro, .zip de instalação, auto-update e landing page.",
+  "version": "1.1.0",
+  "author": {
+    "name": "FunniLab"
+  },
+  "homepage": "https://funnilab.com/skill-wpplugin",
+  "repository": "https://github.com/joaopaulobes/wp-plugin-skill",
+  "license": "MIT",
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "generator",
+    "php",
+    "no-code"
+  ]
+}

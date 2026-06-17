@@ -1,0 +1,16 @@
+{
+  "name": "funnilab",
+  "owner": {
+    "name": "FunniLab"
+  },
+  "description": "Skills da FunniLab para o Claude Code.",
+  "plugins": [
+    {
+      "name": "wp-plugin",
+      "source": "./",
+      "description": "Construtor de plugins de WordPress: descreva o plugin e receba código + .zip + auto-update + landing.",
+      "homepage": "https://funnilab.com/skill-wpplugin",
+      "license": "MIT"
+    }
+  ]
+}

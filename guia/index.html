@@ -170,8 +170,19 @@
 
 <!-- INSTALAR -->
 <section id="instalar"><div class="wrap">
-  <p class="eyebrow">Instalação</p><h2 class="t">Instale em 3 passos</h2>
-  <p class="sub">A skill é uma pasta que você copia para as skills do seu Claude Code.</p>
+  <p class="eyebrow">Instalação</p><h2 class="t">Dois jeitos de instalar</h2>
+  <p class="sub">O recomendado se atualiza sozinho. O manual mantém o comando <span class="mono">/wp-plugin</span> limpo.</p>
+
+  <div class="card" style="border-left:3px solid var(--green);margin-bottom:24px">
+    <div class="e" style="background:color-mix(in srgb,var(--green) 16%,transparent)">⭐</div>
+    <h3 style="font-size:18px">Método 1 — Marketplace <span style="color:var(--green)">(recomendado · auto-update)</span></h3>
+    <p style="color:var(--dim);font-size:14.5px;margin:6px 0 12px">Instala como plugin do Claude Code. Toda melhoria publicada chega a você <b>sozinha, no próximo startup</b>. Dois comandos, uma vez:</p>
+    <div class="code"><button class="cp">copiar</button><pre>/plugin marketplace add joaopaulobes/wp-plugin-skill
+/plugin install wp-plugin@funnilab</pre></div>
+    <p style="color:var(--dim);font-size:13.5px;margin-top:10px">Forçar atualização: <span class="mono">/plugin marketplace update funnilab</span></p>
+  </div>
+
+  <h3 style="text-align:center;font-size:16px;font-weight:800;margin:26px 0 4px">Método 2 — Cópia manual <span style="color:var(--dim);font-weight:600">(comando /wp-plugin limpo)</span></h3>
   <div class="steps">
 
     <div class="step"><div class="n">1</div><div>
@@ -182,14 +193,14 @@
 
     <div class="step"><div class="n">2</div><div>
       <h3>Copie a skill para o Claude Code</h3>
-      <p>Mova a pasta <span class="mono">skill/wp-plugin</span> para o diretório de skills do seu Claude Code.</p>
+      <p>Mova a pasta <span class="mono">skills/wp-plugin</span> para o diretório de skills do seu Claude Code.</p>
       <div class="code"><button class="cp">copiar</button><pre>mkdir -p ~/.claude/skills
-cp -r wp-plugin-skill/skill/wp-plugin ~/.claude/skills/</pre></div>
+cp -r wp-plugin-skill/skills/wp-plugin ~/.claude/skills/</pre></div>
     </div></div>
 
     <div class="step"><div class="n">3</div><div>
       <h3>Reabra o Claude Code e chame a skill</h3>
-      <p>Pronto! Em qualquer pasta, digite o comando e descreva o seu plugin.</p>
+      <p>Pronto! Em qualquer pasta, digite o comando e descreva o seu plugin. A skill avisa quando há versão nova e se atualiza com a sua permissão.</p>
       <div class="code"><button class="cp">copiar</button><pre>/wp-plugin</pre></div>
     </div></div>
 

@@ -3,6 +3,11 @@
 Todas as mudanças relevantes deste projeto são documentadas aqui.
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/) e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.0] — 2026-06-17
+
+### Alterado
+* marketplace + auto-update da skill (plugin Claude Code) e checagem interna de versão
+
 ## [Não lançado]
 
 ### Planejado

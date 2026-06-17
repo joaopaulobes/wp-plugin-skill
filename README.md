@@ -42,6 +42,7 @@
 - [⚙️ Como funciona (o pipeline)](#️-como-funciona-o-pipeline)
 - [🧠 O que a skill domina](#-o-que-a-skill-domina)
 - [🚀 Instalação](#-instalação)
+- [🔄 Como a skill se atualiza](#-como-a-skill-se-atualiza)
 - [💬 Como usar](#-como-usar)
 - [📂 Estrutura do repositório](#-estrutura-do-repositório)
 - [🔐 Segurança & qualidade](#-segurança--qualidade)
@@ -144,7 +145,7 @@ flowchart LR
 
 ## 🧠 O que a skill domina
 
-A skill carrega o **WordPress Plugin Blueprint** (`skill/wp-plugin/references/blueprint.md`) — um mapa prático de **toda a anatomia** de um plugin. Cobertura:
+A skill carrega o **WordPress Plugin Blueprint** (`skills/wp-plugin/references/blueprint.md`) — um mapa prático de **toda a anatomia** de um plugin. Cobertura:
 
 <table>
 <tr><th>Camada</th><th>Cobre</th></tr>
@@ -178,7 +179,23 @@ A skill carrega o **WordPress Plugin Blueprint** (`skill/wp-plugin/references/bl
 | `curl` + `python3` *(opcional)* | Script de auto-update |
 | Hospedagem estática *(opcional)* | Servir o auto-update |
 
-#### Passo a passo
+### Método 1 — Marketplace (recomendado · auto-update) ⭐
+
+Instala como **plugin** do Claude Code. O Claude Code **se atualiza sozinho no startup** sempre que você publica uma versão nova — sem fazer nada.
+
+```bash
+# no Claude Code:
+/plugin marketplace add joaopaulobes/wp-plugin-skill
+/plugin install wp-plugin@funnilab
+```
+
+Pronto. Depois é só usar (a skill se ativa quando você descreve um plugin, ou via o menu `/plugin`). Para forçar uma atualização manual: `/plugin marketplace update funnilab`.
+
+<div align="center"><a href="https://funnilab.com/skill-wpplugin#instalar"><img src="docs/install.jpg" alt="Instalação da skill" width="760"></a></div>
+
+### Método 2 — Cópia manual / git clone
+
+Mantém o comando `/wp-plugin` limpo. A própria skill checa o GitHub quando é usada e oferece atualizar.
 
 ```bash
 # 1) Clone este repositório
@@ -186,27 +203,48 @@ git clone https://github.com/joaopaulobes/wp-plugin-skill.git
 
 # 2) Copie a pasta da skill para as skills do seu Claude Code
 mkdir -p ~/.claude/skills
-cp -r wp-plugin-skill/skill/wp-plugin ~/.claude/skills/
+cp -r wp-plugin-skill/skills/wp-plugin ~/.claude/skills/
 
 # 3) Reabra o Claude Code — a skill /wp-plugin está disponível
 ```
 
-<div align="center"><a href="https://funnilab.com/skill-wpplugin#instalar"><img src="docs/install.jpg" alt="Instalação da skill em 3 passos" width="760"></a></div>
-
 <details>
-<summary><b>Atualizar para uma versão nova da skill</b></summary>
+<summary><b>Atualizar (método 2)</b></summary>
 
+A skill avisa quando há versão nova e atualiza com a sua permissão. Manualmente:
 ```bash
-cd wp-plugin-skill && git pull
-cp -r skill/wp-plugin ~/.claude/skills/
+cd wp-plugin-skill && git pull && cp -r skills/wp-plugin ~/.claude/skills/
 ```
 </details>
 
-<details>
-<summary><b>Não usa git? Baixe o ZIP</b></summary>
+> 🔄 **Auto-update:** veja a seção [Como a skill se atualiza](#-como-a-skill-se-atualiza).
 
-Baixe o repositório em **Code → Download ZIP**, descompacte e copie a pasta `skill/wp-plugin` para `~/.claude/skills/`.
-</details>
+<br>
+
+## 🔄 Como a skill se atualiza
+
+Toda melhoria publicada no GitHub chega aos usuários por **dois canais complementares**:
+
+```mermaid
+flowchart LR
+    M["🛠️ Mantenedor<br/>publicar-skill.sh"] -- "bump + push + tag" --> G[("GitHub<br/>marketplace")]
+    G -- "git pull no startup" --> U1["👤 Usuário (marketplace)<br/>atualiza sozinho"]
+    G -- "checagem ao usar" --> U2["👤 Usuário (git clone)<br/>skill oferece atualizar"]
+```
+
+- **Marketplace** — o Claude Code dá `git pull` do marketplace **no startup** e aplica a versão nova (avisa para `/reload-plugins`).
+- **Checagem interna** — ao ser ativada, a skill compara a versão local com a do GitHub e **oferece atualizar** (ver `references/self-update.md`).
+
+#### Publicando uma nova versão (mantenedor)
+
+Um comando faz tudo (bump de versão + changelog + commit + push + tag + release):
+
+```bash
+./scripts/publicar-skill.sh                 # bump de patch
+./scripts/publicar-skill.sh 1.2.0 "o que mudou"
+```
+
+O versionamento usa o campo `version` do `.claude-plugin/plugin.json` — o bump é o gatilho do auto-update.
 
 <br>
 
@@ -270,22 +308,28 @@ skill ›  ✓ feito · versão 1.1.0 · zip re-empacotado.
 ## 📂 Estrutura do repositório
 
 ```
-wp-plugin-skill/
-├── skill/wp-plugin/            ← a SKILL (copie para ~/.claude/skills/)
+wp-plugin-skill/                 ← repo = plugin + marketplace do Claude Code
+├── .claude-plugin/
+│   ├── plugin.json               manifesto do plugin (versão → gatilho do auto-update)
+│   └── marketplace.json          catálogo do marketplace "funnilab"
+├── skills/wp-plugin/            ← a SKILL
 │   ├── SKILL.md                  cérebro: entrevista → geração → iteração
 │   ├── references/               conhecimento carregado sob demanda
 │   │   ├── blueprint.md            mapa completo da arquitetura de plugins WP
 │   │   ├── snippets.md             trechos prontos por padrão (CPT, REST, cron…)
-│   │   ├── auto-update.md          servidor de updates + cliente + pegadinhas
+│   │   ├── auto-update.md          servidor de updates do PLUGIN gerado
 │   │   ├── landing.md              landing + screenshots + favicon + modal
+│   │   ├── self-update.md          checagem de versão da PRÓPRIA skill
 │   │   └── checklist.md            qualidade/segurança antes de entregar
 │   └── templates/                esqueleto pronto (com placeholders)
 │       ├── plugin/                 plugin-main, install, admin, updater, assets…
-│       ├── publicar.sh             script de publicação do auto-update
+│       ├── publicar.sh             script de publicação do auto-update do plugin
 │       └── landing/                template da landing page + favicon
+├── scripts/publicar-skill.sh    ← publica nova versão da skill p/ todos
 ├── guia/                        ← página-guia (funnilab.com/skill-wpplugin)
 ├── docs/                        ← assets do README
-├── README.md · LICENSE · .gitignore
+├── .github/                     ← templates de issue + PR
+└── README · LICENSE · CHANGELOG · CONTRIBUTING · SECURITY · CODE_OF_CONDUCT
 ```
 
 <br>

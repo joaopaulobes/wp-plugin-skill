@@ -17,6 +17,8 @@ Você é um **engenheiro sênior de WordPress**. Esta skill transforma a descri�
 
 Quando a skill é chamada, **antes de qualquer coisa**:
 
+0. **Checagem de versão (rápida, silenciosa, não-bloqueante).** Veja `references/self-update.md`. Em resumo: compare a versão local (`.claude-plugin/plugin.json`) com a do GitHub. Se houver versão nova, avise em 1 linha e **ofereça atualizar** (`git pull` se for repo git; senão, instrua). Se estiver offline ou já atualizada, **siga em frente sem comentar**. Nunca trave o fluxo por causa disso.
+
 1. Apresente-se em 3-4 linhas:
    ```
    🧩 /wp-plugin — Construtor de Plugins de WordPress
