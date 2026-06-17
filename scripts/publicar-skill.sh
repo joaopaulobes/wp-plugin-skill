@@ -48,12 +48,19 @@ if [ -f CHANGELOG.md ]; then
 import sys,io
 ver,date,msg=sys.argv[1],sys.argv[2],sys.argv[3]
 t=io.open('CHANGELOG.md',encoding='utf-8').read()
-entry=f"\n## [{ver}] — {date}\n\n### Alterado\n* {msg}\n"
-anchor="## [1.0.0]"
-if "## ["+ver+"]" not in t:
-    i=t.find("## [")  # primeira entrada existente
-    t=t[:i]+entry.strip()+"\n\n"+t[i:] if i!=-1 else t+entry
-    io.open('CHANGELOG.md','w',encoding='utf-8').write(t)
+if "## ["+ver+"]" in t:
+    raise SystemExit(0)  # já existe, não duplica
+entry=f"## [{ver}] — {date}\n\n### Alterado\n- {msg}\n\n"
+# Insere DEPOIS do bloco "[Não lançado]" (se houver), senão antes da 1ª entrada.
+unrel=t.find("## [Não lançado]")
+if unrel!=-1:
+    nxt=t.find("## [", unrel+1)            # próxima seção após "Não lançado"
+    i=nxt if nxt!=-1 else len(t)
+else:
+    i=t.find("## [")
+    if i==-1: i=len(t)
+t=t[:i]+entry+t[i:]
+io.open('CHANGELOG.md','w',encoding='utf-8').write(t)
 PY
   ok "CHANGELOG atualizado"
 fi
