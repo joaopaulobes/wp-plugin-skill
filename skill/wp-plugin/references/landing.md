@@ -50,6 +50,15 @@ As abas do modal vêm das `sections` do JSON de update (ver `auto-update.md`). P
 - `tested` = versão atual do WP (ex.: `7.0`) para sumir o aviso "não foi testado".
 - Use só tags permitidas pelo `wp_kses` do modal (a, img[src,alt], h1–h4, p, ul/ol/li, strong, em, code, blockquote) — **sem** `style`/`width` (são removidos); dimensione as imagens no arquivo.
 
-## 5. Banner da marca
+## 5. Favicon
+
+Gere um **favicon quadrado** (`landing/img/favicon.webp`, ~256px) com a marca do plugin (glyph/ícone num quadrado arredondado com o gradiente da marca). Dá para renderizar um HTML simples e exportar webp direto pelo navegador headless (`screenshot({type:'webp'})`). O template da landing já referencia:
+```html
+<link rel="icon" type="image/webp" href="img/favicon.webp">
+<link rel="apple-touch-icon" href="img/favicon.webp">
+```
+Em subpáginas (ex.: `instalar/`), use `../img/favicon.webp`.
+
+## 6. Banner da marca
 
 Gere os banners (1544×500 e 772×250) com o gradiente/logo da marca. Dá para renderizar um HTML simples com a marca e capturar via navegador headless, depois exportar JPG.
