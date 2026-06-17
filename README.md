@@ -191,6 +191,8 @@ cp -r wp-plugin-skill/skill/wp-plugin ~/.claude/skills/
 # 3) Reabra o Claude Code — a skill /wp-plugin está disponível
 ```
 
+<div align="center"><a href="https://funnilab.com/skill-wpplugin#instalar"><img src="docs/install.jpg" alt="Instalação da skill em 3 passos" width="760"></a></div>
+
 <details>
 <summary><b>Atualizar para uma versão nova da skill</b></summary>
 
@@ -398,7 +400,14 @@ A skill roda dentro do seu Claude Code. Os plugins gerados não dependem de serv
 
 ## 🤝 Contribuindo
 
-Contribuições são bem-vindas! Abra uma [issue](https://github.com/joaopaulobes/wp-plugin-skill/issues) para bugs/ideias ou um Pull Request para melhorias nos *references*, *templates* ou na página-guia.
+Contribuições são muito bem-vindas! Abra uma [issue](https://github.com/joaopaulobes/wp-plugin-skill/issues/new/choose) para bugs/ideias ou um Pull Request para melhorias nos *references*, *templates* ou na página-guia.
+
+| Documento | Para quê |
+|---|---|
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Como contribuir, padrões e fluxo |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) | Como nos tratamos por aqui |
+| [SECURITY.md](SECURITY.md) | Reportar vulnerabilidades (privado) |
+| [CHANGELOG.md](CHANGELOG.md) | Histórico de versões |
 
 <br>
 
